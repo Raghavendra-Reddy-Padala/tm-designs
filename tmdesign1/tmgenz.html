@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Mocha Professional Services</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #ff3b3b, #0066ff);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Space Grotesk', sans-serif;
+            box-shadow: 0 8px 25px rgba(255, 59, 59, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 59, 59, 0.3);
+        }
+
+        .poster {
+            background: #0a0a0a;
+            width: 600px;
+            height: 800px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 50px rgba(255, 59, 59, 0.2),
+                0 0 100px rgba(0, 102, 255, 0.1),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Glassmorphism border */
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: linear-gradient(135deg, 
+                rgba(255, 59, 59, 0.3), 
+                rgba(0, 102, 255, 0.3),
+                rgba(255, 59, 59, 0.2)
+            );
+            border-radius: 18px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .poster::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: #0a0a0a;
+            border-radius: 16px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Floating geometric shapes */
+        .bg-shape {
+            position: absolute;
+            z-index: 3;
+            opacity: 0.1;
+        }
+
+        .shape1 {
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff3b3b, #0066ff);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape2 {
+            bottom: 20%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            background: #0066ff;
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite reverse;
+        }
+
+        .shape3 {
+            top: 50%;
+            right: 5%;
+            width: 60px;
+            height: 60px;
+            background: #ff3b3b;
+            transform: rotate(45deg);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(45deg); }
+            to { transform: rotate(405deg); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-image {
+            width: 180px;
+            height: auto;
+            max-height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255, 59, 59, 0.3));
+        }
+
+        .company-name {
+            background: linear-gradient(135deg, #ff3b3b, #0066ff, #ff3b3b);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -1px;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .tagline {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .services-section {
+            flex: 1;
+        }
+
+        .services-title {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+        }
+
+        .services-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff3b3b, #0066ff);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 59, 59, 0.1), 
+                rgba(0, 102, 255, 0.1),
+                transparent
+            );
+            transition: left 0.5s ease;
+        }
+
+        .service-item:hover::before {
+            left: 100%;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 59, 59, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 59, 59, 0.2);
+        }
+
+        .service-item:nth-child(even):hover {
+            border-color: rgba(0, 102, 255, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(0, 102, 255, 0.2);
+        }
+
+        .service-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .service-item:nth-child(odd) .service-icon {
+            color: #ff3b3b;
+        }
+
+        .service-item:nth-child(even) .service-icon {
+            color: #0066ff;
+        }
+
+        .service-name {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.3;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+                z-index: 10; /* Add this to ensure it's above background elements */
+
+        }
+
+       .contact-info {
+    margin-bottom: 25px;
+    background: rgba(20, 20, 20, 0.8); /* Changed to darker background */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Slightly more visible border */
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(5px); /* Reduced blur for better visibility */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Added shadow for depth */
+    position: relative;
+    overflow: hidden;
+}
+
+      
+/* Add a subtle gradient overlay */
+.contact-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff3b3b, #0066ff);
+}
+
+.website {
+    background: linear-gradient(135deg, #ff3b3b, #0066ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.contact-details {
+    color: rgba(255, 255, 255, 0.8); /* Increased opacity for better readability */
+    font-size: 13px;
+    font-weight: 400;
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+}
+        .cta-text {
+            background: linear-gradient(135deg, #ff3b3b, #0066ff);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-text:hover::before {
+            left: 100%;
+        }
+
+        .cta-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 59, 59, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 650px) {
+            .poster {
+                width: 100%;
+                max-width: 400px;
+                height: 700px;
+            }
+            
+            .content {
+                padding: 30px;
+            }
+            
+            .logo-image {
+                width: 140px;
+                max-height: 70px;
+            }
+            
+            .company-name {
+                font-size: 32px;
+            }
+            
+            .services-title {
+                font-size: 26px;
+                margin-bottom: 30px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                max-width: 100%;
+            }
+            
+            .service-name {
+                font-size: 14px;
+            }
+        }
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                background: black;
+            }
+            
+            .download-btn {
+                display: none;
+            }
+            
+            .poster {
+                box-shadow: none;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <button class="download-btn" onclick="downloadCard()">✨ Download Poster</button>
+    
+    <div class="poster" id="poster">
+        <!-- Floating background shapes -->
+        <div class="bg-shape shape1"></div>
+        <div class="bg-shape shape2"></div>
+        <div class="bg-shape shape3"></div>
+        
+        <div class="content">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo">
+                    <img src="logo/newlogo.png" alt="Tech Mocha Logo" class="logo-image">
+                </div>
+                <div class="tagline">Digital Innovation & Tech Solutions</div>
+            </div>
+
+            <div class="services-section">
+                <h2 class="services-title">What We Do</h2>
+                
+                <div class="services-grid">
+                    <div class="service-item">
+                        <span class="service-icon">🌐</span>
+                        <div class="service-name">Web Development</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <span class="service-icon">📱</span>
+                        <div class="service-name">Mobile Apps</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <span class="service-icon">🎨</span>
+                        <div class="service-name">UI/UX Design</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <span class="service-icon">📈</span>
+                        <div class="service-name">Digital Marketing</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <span class="service-icon">⚡</span>
+                        <div class="service-name">Server Management</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <span class="service-icon">🤖</span>
+                        <div class="service-name">AI Integration</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="contact-info">
+                    <div class="website">techmocha.in</div>
+                    <div class="contact-details">
+                        support@techmocha.in<br>
+                        +91 8886880567
+                    </div>
+                
+        </div>
+    </div>
+
+    <script>
+        function downloadCard() {
+            const poster = document.getElementById('poster');
+            
+            html2canvas(poster, {
+                backgroundColor: '#0a0a0a',
+                scale: 4,
+                useCORS: true,
+                allowTaint: true,
+                width: poster.offsetWidth,
+                height: poster.offsetHeight
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'techmocha-genz-poster.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>

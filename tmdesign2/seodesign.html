@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Mocha SEO Story</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background: #ff3b3b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: #ff0000;
+        }
+
+        .nav-btn {
+            background: #222222;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 500px;
+            height: 700px;
+            margin: 0 auto;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.4s ease;
+            background: #000000;
+            border: 1px solid #333333;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-content {
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header - Updated to left-align logo and right-align tagline */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .slide-logo {
+            width: 160px; /* Made logo bigger */
+            height: auto;
+            /* Removed filter to keep original logo colors */
+        }
+
+        .slide-tagline {
+            color: #aaaaaa;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Footer */
+        .slide-footer {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .contact-info {
+            background: #111111;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #333333;
+        }
+
+        .website {
+            color: #ff3b3b;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .contact-details {
+            color: #aaaaaa;
+            font-size: 12px;
+            line-height: 1.6;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Slide 1: What is SEO */
+        .simple-icon {
+            font-size: 60px;
+            margin: 30px auto;
+            color: #ff3b3b;
+        }
+
+        .simple-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .simple-text {
+            color: #cccccc;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: center;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Slide 2: The Search Story */
+        .story-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .story-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: #ff3b3b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .step-text {
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .search-container {
+            background: #111111;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .search-highlight {
+            position: absolute;
+            border-radius: 4px;
+            animation: highlightPulse 2s infinite;
+        }
+
+        /* Slide 3: Business Listing */
+        .business-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .business-text {
+            color: #cccccc;
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .highlight {
+            color: #ff3b3b;
+            font-weight: 600;
+        }
+
+        .listing-container {
+            background: #111111;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 15px 0;
+        }
+
+        .listing-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .listing-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #ff3b3b;
+        }
+
+        /* Slide 4: Why Tech Mocha */
+        .expertise-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 20px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .expertise-text {
+            color: #cccccc;
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            background: #111111;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #ff3b3b;
+        }
+
+        .benefit-text {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Slide 5: CTA */
+        .cta-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 80px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .cta-subtitle {
+            color: #aaaaaa;
+            font-size: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .cta-btn {
+            background: #ff3b3b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s ease;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn:hover {
+            background: #ff0000;
+        }
+
+        /* Progress indicator */
+        .progress-indicator {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 20;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #333333;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #ff3b3b;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666666;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 20;
+        }
+
+        /* Animations */
+        @keyframes highlightPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Responsive */
+        @media (max-width: 550px) {
+            .slide-container {
+                width: 100%;
+                max-width: 400px;
+                height: 600px;
+            }
+            
+            .slide-content {
+                padding: 25px;
+            }
+            
+            .simple-title, .cta-title {
+                font-size: 26px;
+            }
+            
+            .slide-logo {
+                width: 140px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="controls">
+        <button class="control-btn nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="control-btn" onclick="downloadCurrentSlide()">📱 Download</button>
+        <button class="control-btn nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <div class="slide-container" id="slideContainer">
+        <div class="progress-indicator">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+        </div>
+
+        <!-- Slide 1: What is SEO -->
+        <div class="slide slide1 active" id="slide1">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <img src="logo/newlogo.png" alt="Tech Mocha" class="slide-logo" onerror="this.style.display='none'">
+                    <div class="slide-tagline">SEO Made Simple</div>
+                </div>
+                
+                <div class="simple-icon">🔍</div>
+                <h1 class="simple-title">What is SEO?</h1>
+                <p class="simple-text">SEO helps your business appear when customers search for what you offer.</p>
+                
+                <div class="slide-footer">
+                    <div class="contact-info">
+                        <div class="website">techmocha.in</div>
+                        <div class="contact-details">
+                            📞 +91 8886880567<br>
+                            ✉️ support@techmocha.in
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Search Story -->
+        <div class="slide slide2" id="slide2">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <img src="logo/newlogo.png" alt="Tech Mocha" class="slide-logo" onerror="this.style.display='none'">
+                    <div class="slide-tagline">How SEO Works</div>
+                </div>
+                
+                <h2 class="story-title">The Customer Journey</h2>
+                
+                <div class="story-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Customer searches for "best ice cream near me"</div>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-highlight" style="width: 300px; height: 40px; top: 25px; left: 30px;"></div>
+                    <!-- Replace with your Google search screenshot -->
+                    <p style="color: white; text-align: center; margin: 0;">
+                        <img src="logo/image.png" alt="Tech Mocha" 
+                             style="width: 100%; height: 100%; object-fit: contain; max-width: 300px;" 
+                             onerror="this.style.display='none'">
+                    </p>
+                </div>
+                
+                <div class="story-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Google shows top results</div>
+                </div>
+                
+                <div class="story-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Customer picks one and buys</div>
+                </div>
+                
+                <div class="slide-footer">
+                    <div class="contact-info">
+                        <div class="website">techmocha.in</div>
+                        <div class="contact-details">
+                            📞 +91 8886880567<br>
+                            ✉️ support@techmocha.in
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Business Listing -->
+        <div class="slide slide3" id="slide3">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <img src="logo/newlogo.png" alt="Tech Mocha" class="slide-logo" onerror="this.style.display='none'">
+                    <div class="slide-tagline">Get Listed, Get Customers</div>
+                </div>
+                
+                <h2 class="business-title">Want Your Business Here?</h2>
+                <p class="business-text">With <span class="highlight">SEO</span>, we can get your business to appear when customers search.</p>
+                
+                <div class="listing-container">
+                    <div class="listing-item">
+                        <div class="listing-icon">📍</div>
+                        <div class="step-text">Appear in local searches</div>
+                    </div>
+                    <div class="listing-item">
+                        <div class="listing-icon">👀</div>
+                        <div class="step-text">Get more visibility</div>
+                    </div>
+                    <div class="listing-item">
+                        <div class="listing-icon">💰</div>
+                        <div class="step-text">Attract paying customers</div>
+                    </div>
+                </div>
+                
+                <div class="slide-footer">
+                    <div class="contact-info">
+                        <div class="website">techmocha.in</div>
+                        <div class="contact-details">
+                            📞 +91 8886880567<br>
+                            ✉️ support@techmocha.in
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Why Tech Mocha -->
+        <div class="slide slide4" id="slide4">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <img src="logo/newlogo.png" alt="Tech Mocha" class="slide-logo" onerror="this.style.display='none'">
+                    <div class="slide-tagline">SEO Experts</div>
+                </div>
+                
+                <h2 class="expertise-title">Why Tech Mocha?</h2>
+                <p class="expertise-text">We specialize in getting businesses to the top of search results</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🚀</div>
+                        <div class="benefit-text">Fast Results</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎯</div>
+                        <div class="benefit-text">Targeted Traffic</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📈</div>
+                        <div class="benefit-text">More Sales</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💯</div>
+                        <div class="benefit-text">Proven Methods</div>
+                    </div>
+                </div>
+                
+                <div class="slide-footer">
+                    <div class="contact-info">
+                        <div class="website">techmocha.in</div>
+                        <div class="contact-details">
+                            📞 +91 8886880567<br>
+                            ✉️ support@techmocha.in
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: CTA -->
+        <div class="slide slide5" id="slide5">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <img src="logo/newlogo.png" alt="Tech Mocha" class="slide-logo" onerror="this.style.display='none'">
+                    <div class="slide-tagline">Let's Get Started</div>
+                </div>
+                
+                <h2 class="cta-title">Ready for More Customers?</h2>
+                <p class="cta-subtitle">Let's get your business to the top of search results</p>
+                
+                <button class="cta-btn">Get Free SEO Consultation</button>
+                
+                <div class="slide-footer">
+                    <div class="contact-info">
+                        <div class="website">techmocha.in</div>
+                        <div class="contact-details">
+                            📞 +91 8886880567<br>
+                            ✉️ support@techmocha.in<br>
+                            🌐 www.techmocha.in
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-counter">
+            <span id="currentSlide">1</span>/5
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+        
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide - 1);
+            });
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+        }
+        
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+        
+        function previousSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+        
+        function downloadCurrentSlide() {
+            const slide = document.getElementById(`slide${currentSlide}`);
+            html2canvas(slide).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `tech-mocha-seo-slide-${currentSlide}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+    </script>
+</body>
+</html>
